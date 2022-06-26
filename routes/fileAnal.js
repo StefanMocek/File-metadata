@@ -1,6 +1,7 @@
 const express = require("express")
 const router = express.Router()
 const multer = require("multer")
+const { fileAnal } = require("../constrollers/fileAnalCon")
 
 
 const fileStorageEbngine = multer.diskStorage({
@@ -13,10 +14,6 @@ const fileStorageEbngine = multer.diskStorage({
   })
   const upload = multer({storage: fileStorageEbngine})
 
-  router.post("/", upload.single("upfile") , (req,res) => {
-    const {originalname, mimetype, size} = req.file
-    console.log(req.file)
-    res.json({"name":originalname,"type":mimetype,"size":size})
-  })
+  router.post("/", upload.single("upfile") , fileAnal)
 
   module.exports = router
